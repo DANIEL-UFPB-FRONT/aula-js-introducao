@@ -103,19 +103,70 @@ const blockScopedAndReadOnly = 'Sou read-only'
 // blockScopedAndReadOnly = 'Será?' // erro nesta atribuição
 
 
+// ###### Operadores Lógicos e Condicionais ######
+console.log(true && false) // false
+console.log(true || false) // true
+console.log(!true) //  false
+
+console.log('Valor 1 == 1? R. ' + (1 == '1')) // true
+console.log('Valor 1 === 1? R. ' + (1 === '1')) // false
+console.log('Valor 1 != 1? R. ' + (1 != '1')) // false
+console.log('Valor 1 !== 1? R. ' + (1 !== '1')) // true
+
+const value = 12
+if (value % 2 === 0) {
+    console.log('valor par')
+}
+
+if (value % 2 === 0) {
+    console.log('valor par')
+} else {
+ console.log('Valor ímpar')   
+}
+
+value % 2 === 0 ? console.log('valor par') : console.log('valor ímpar') // Operador ternário
 
 
 
-//
+// ###### Laços de Repetição ######
+const animais = ['cachorro', 'gato', 'pássaro', 'elefante', 'girafa']
+
+console.log('for')
+for (let i = 0; i < animais.length; i++) {
+    console.log(`Eu sou o ${animais[i]}`);
+}
+
+console.log('forof')
+for (const elem of animais) {
+    console.log(`Eu sou o ${elem}`)
+}
+
+console.log('while')
+let item = 0
+while (item < animais.length) {
+    console.log(animais[item])
+    item = item + 1
+}
+
+console.log('do-while')
+item = 0
+do {
+    console.log(animais[item])
+    item = item + 1
+} while (item < animais.length);
+
+
+
+// ###### Operações com Arrays ######
 
 const array = [1, 2, 3, 4, 5, 6, 7, 8]
 
-console.log(array.length) // 8
+console.log(array.length) // tamanho do array 8
 
 array.forEach(element => console.log(element)); // 1 2 3 4 5 6 7 8
 
-const mais2 = [9, 10]
-console.log(array.concat(mais2)) // 1 2 3 4 5 6 7 8 9 10
+const more2 = [9, 10]
+console.log(array.concat(more2)) // 1 2 3 4 5 6 7 8 9 10
 
 array.map((element) => element % 2 === 0) // false true false true false true...
 
@@ -123,8 +174,31 @@ array.filter(element => element % 2 === 0) // 2, 4, 6, 8
 
 array.reduce((acumulador, element) => acumulador + element) // 1 + 2 + 3 + 4 ...
 
-array.find(element => element / 3 === 2) // 6 - caso náo fosse encontrado um item retorna undefined
+array.find(element => element / 3 === 2) // 6 - caso não seja encontrado um item retorna undefined
 
 array.some(element => element / 3 === 2) // Mesmo que find, porém só indica se o item existe [true, false]
 
-array.every(element => typeof element === 'number') // true
+array.every(element => typeof element === 'number') // true - verifica se todos os itens satisfazem o teste
+
+
+// ###### Promessas ######
+
+let p = fetch("https://swapi.dev/api/starships/?page=2")
+.then((response) => response.json()) // response.json() é equivalente a return response.json()
+.then((data) => console.log("Lista de naves: ", data.results)) // equivalente a 'function print(data) { console.log('Lista de naves: ', data.results) }'
+.catch((e) => console.log(e));
+
+
+async function callAsync() {
+try {
+  let res = await fetch("https://swapi.dev/api/species/?page=2");
+  let speciesList = await res.json();
+  console.log("Lista de espécies");
+  console.log(speciesList.results);
+} catch (error) {
+  console.log(error);
+}
+}
+
+
+callAsync(); // Precisamos chamar desta forma pois o uso de await exige um async anterior.
